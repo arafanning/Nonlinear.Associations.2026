@@ -3,7 +3,6 @@
 # Purpose: 01 Setup
 
 
-
 # ============================================================
 # 1. Create neurocognitive test z-scores and domain composites
 # ============================================================
@@ -83,7 +82,6 @@ data$processing_speed_z <- rowMeans(
   na.rm = TRUE
 )
 
-
 # ------------------------------------------------------------
 # 1e. Create global neurocognitive composite
 # Require at least 9 of 10 tests.
@@ -133,11 +131,3 @@ sum(rowSums(!is.na(data[, c("hvdr_z", "bvdr_z")])) == 1)       # Memory
 sum(rowSums(!is.na(data[, c("mstct_z", "gpttim_z")])) == 1)    # Motor
 sum(rowSums(!is.na(data[, c("wcpe_z", "igtnt_z")])) == 1)      # Executive
 sum(rowSums(!is.na(data[, c("cd_z", "ss_z")])) == 1)           # Processing speed
-
-
-
-set.seed(2026)
-
-# Add library() calls below.
-# Save final session information with:
-# writeLines(capture.output(sessionInfo()), "session-info.txt")
