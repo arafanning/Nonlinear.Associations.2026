@@ -74,3 +74,101 @@ contrasts(data$du_mar4_12m_aBin_ord) <- contr.poly(3)
 
 table(data$du_mar4_12m_aBin_ord, useNA = "ifany")
 contrasts(data$du_mar4_12m_aBin_ord)
+
+
+
+# ============================================================
+# 8. Decision table comparing cannabis binning options
+# ============================================================
+
+cannabis_decision_table <- data.frame(
+  exposure = c(
+    "Past-year median split",
+    "30-day median split",
+    "30-day 30g threshold",
+    "Lifetime median split",
+    "Lifetime q75 split"
+  ),
+  
+  raw_variable = c(
+    "du_mar4_12m_a",
+    "du_mar6_30d_a",
+    "du_mar6_30d_a",
+    "du_mar2_life_a",
+    "du_mar2_life_a"
+  ),
+  
+  bin_variable = c(
+    "du_mar4_12m_aBin",
+    "du_mar6_30d_aBin",
+    "du_mar6_30d_aBin30_lowincl",
+    "du_mar2_life_aBin",
+    "du_mar2_life_aBin_q75"
+  ),
+  
+  n_none = c(
+    sum(data$du_mar4_12m_aBin == 0, na.rm = TRUE),
+    sum(data$du_mar6_30d_aBin == 0, na.rm = TRUE),
+    sum(data$du_mar6_30d_aBin30_lowincl == 0, na.rm = TRUE),
+    sum(data$du_mar2_life_aBin == 0, na.rm = TRUE),
+    sum(data$du_mar2_life_aBin_q75 == 0, na.rm = TRUE)
+  ),
+  
+  n_low_or_lower = c(
+    sum(data$du_mar4_12m_aBin == 1, na.rm = TRUE),
+    sum(data$du_mar6_30d_aBin == 1, na.rm = TRUE),
+    sum(data$du_mar6_30d_aBin30_lowincl == 1, na.rm = TRUE),
+    sum(data$du_mar2_life_aBin == 1, na.rm = TRUE),
+    sum(data$du_mar2_life_aBin_q75 == 1, na.rm = TRUE)
+  ),
+  
+  n_high_or_heavier = c(
+    sum(data$du_mar4_12m_aBin == 2, na.rm = TRUE),
+    sum(data$du_mar6_30d_aBin == 2, na.rm = TRUE),
+    sum(data$du_mar6_30d_aBin30_lowincl == 2, na.rm = TRUE),
+    sum(data$du_mar2_life_aBin == 2, na.rm = TRUE),
+    sum(data$du_mar2_life_aBin_q75 == 2, na.rm = TRUE)
+  ),
+  
+  lower_min = c(
+    range_low_12m[1],
+    range_low_30d[1],
+    range_low_30d_lowincl[1],
+    range_low_life[1],
+    range_lowmod_life_q75[1]
+  ),
+  
+  lower_max = c(
+    range_low_12m[2],
+    range_low_30d[2],
+    range_low_30d_lowincl[2],
+    range_low_life[2],
+    range_lowmod_life_q75[2]
+  ),
+  
+  higher_min = c(
+    range_high_12m[1],
+    range_high_30d[1],
+    range_high_30d_lowincl[1],
+    range_high_life[1],
+    range_high_life_q75[1]
+  ),
+  
+  higher_max = c(
+    range_high_12m[2],
+    range_high_30d[2],
+    range_high_30d_lowincl[2],
+    range_high_life[2],
+    range_high_life_q75[2]
+  ),
+  
+  gap = c(
+    gap_12m,
+    gap_30d,
+    gap_30d_lowincl,
+    gap_life,
+    gap_life_q75
+  )
+)
+
+cannabis_decision_table
